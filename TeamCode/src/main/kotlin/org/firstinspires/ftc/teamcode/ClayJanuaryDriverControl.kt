@@ -22,7 +22,7 @@ import kotlin.math.sqrt
 class ClayJanuaryDriverControl : LinearOpMode() {
     private var poseEstimate = Pose2d(0.0, 0.0, 0.0)
 
-    private val maxHeight = 7;
+    private val maxHeight = 9;
     private var hangMode = 0
     private var pressed = false
     private lateinit var hang: DcMotorEx
@@ -193,7 +193,7 @@ class ClayJanuaryDriverControl : LinearOpMode() {
                 }
                 isSlideMovingUp = true
                 if (runToHeight == 0 || slidePos > 0){
-                    runToHeight = 7
+                    runToHeight = maxHeight
                     slidePos = runToHeight * 200 + 300
                 } else {
                     slidePos = runToHeight*200 + 300
