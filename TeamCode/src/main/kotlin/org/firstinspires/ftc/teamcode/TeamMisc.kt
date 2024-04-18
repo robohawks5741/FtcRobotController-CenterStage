@@ -1,4 +1,3 @@
-@file:JvmName("TeamMisc")
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.Vector2d
@@ -22,7 +21,7 @@ inline infix fun <T, I> I.idc(f: () -> T): T? = try { f() } catch (_: Exception)
 // x\left\{0\le x\le1\right\}
 // \left(x^{n_{i}}\cdot\left(1-x\right)\right)\ +\ \left(x^{n_{o}}\cdot x\right)\left\{0\le x\le1\right\}
 @JvmOverloads
-    fun Double.stickCurve(nI: Double = 1.5, nO: Double = 0.5): Double {
+fun Double.stickCurve(nI: Double = 1.5, nO: Double = 0.5): Double {
     val x = this.absoluteValue
     val s = this.sign
     return (x.pow(nI) * (1 - x)) + (x.pow(nO) * x) * sign

@@ -89,8 +89,8 @@ class ClayJanuaryDriverControl : LinearOpMode() {
 
             // +X = forward
             // +Y = left
-            val x = -gamepad1.left_stick_y.toDouble().stickCurve()
-            val y = -gamepad1.left_stick_x.toDouble().stickCurve()
+            val x = -gamepad1.left_stick_y.toDouble()
+            val y = -gamepad1.left_stick_x.toDouble()
 
             // angle of the stick
             val inputTheta = atan2(y, x)
@@ -165,10 +165,10 @@ class ClayJanuaryDriverControl : LinearOpMode() {
         isLeftClawOpen = true
         isArmDown = true
 
-        drone.position = 1.0
+        drone.position = 0.23
         inlift.position = 0.01
-        trussR.setPosition(0.65);
-        trussL.setPosition(0.3);
+        trussR.setPosition(0.7);
+        trussL.setPosition(0.25);
 
         waitForStart()
 
@@ -276,8 +276,8 @@ class ClayJanuaryDriverControl : LinearOpMode() {
             }
 
             if (hangMode % 2 == 0) {
-                trussR.setPosition(0.65);
-                trussL.setPosition(0.3);
+                trussR.setPosition(0.7);
+                trussL.setPosition(0.25);
             } else if (hangMode % 2 == 1) {
                 trussL.setPosition(0.65);
                 trussR.setPosition(0.3);
@@ -307,7 +307,7 @@ class ClayJanuaryDriverControl : LinearOpMode() {
             }
 
             // Drone Launch ( !!! BOTH PLAYERS MUST HOLD B !!! )
-            if (gamepad1.b || gamepad2.b) drone.position = 0.0
+            if (gamepad1.b || gamepad2.b) drone.position = 1.0
 
             drive.updatePoseEstimate()
             telemetry.addData("DriverRelative", driverRelative)
