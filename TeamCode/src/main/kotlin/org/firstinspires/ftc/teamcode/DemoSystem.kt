@@ -46,11 +46,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.Gamepad
 import org.firstinspires.ftc.teamcode.*
+import org.firstinspires.ftc.teamcode.DemoSystem.inputFileName
+import org.firstinspires.ftc.teamcode.DemoSystem.outputFileName
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
-import java.lang.reflect.Method
 import kotlin.concurrent.thread
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -93,7 +94,7 @@ import kotlin.reflect.full.createInstance
  * ## Setup Requirements:
  * - A project with Kotlin support (see [Using the Kotlin Programming Language - FIRST Tech Challenge](https://ftc-docs.firstinspires.org/en/latest/programming_resources/shared/installing_kotlin/Installing-Kotlin.html))
  * - Kotlin's reflection library (org.jetbrains.kotlin:kotlin-reflect)
- * - An OpMode controlled with gamepad input (which may be a LinearOpMode)
+ * - An OpMode controlled with gamepad input (which CANNOT be a LinearOpMode, probably!!!)
  */
 @Suppress("unused")
 object DemoSystem {
@@ -255,6 +256,8 @@ object DemoSystem {
 
         override fun start() {
             this.timeOffset = this.time
+
+
             emulatedOpMode.time = this.time - timeOffset
             emulatedOpMode.gamepad1.copy(this.gamepad1)
             emulatedOpMode.gamepad2.copy(this.gamepad2)
