@@ -72,12 +72,11 @@ abstract class AutoSuper : LinearOpMode() {
            }
         } */
 
-        while (!isStarted && !isStopRequested) {
+        while ( !isStarted && !isStopRequested) {
             autoSub.detectElement()
             autoSub.setAlliance(alliance)
             telemetry.addData("Current Alliance Selected", alliance.name)
             placementZone = autoSub.spikeMark
-
             telemetry.update()
             sleep(30)
         }
@@ -85,9 +84,10 @@ abstract class AutoSuper : LinearOpMode() {
         placementZone = autoSub.spikeMark
 
         waitForStart()
-        BotShared.wasLastOpModeAutonomous = true
+        sleep(BotShared.autoWaitTimeMs)
         runSpecialized()
         while (opModeIsActive()) {
+            BotShared.wasLastOpModeAutonomous = true
             BotShared.storedPose = drive.pose
         }
     }
