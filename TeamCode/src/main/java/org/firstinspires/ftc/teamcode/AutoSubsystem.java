@@ -14,9 +14,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class AutoSubsystem {
     OpenCvCamera camera;
     public TeamElementPipeline pipeline;
-    int scaleFactor = 2;
-    int resolutionWidth = 1920 / scaleFactor;
-    int resolutionHeight = 1080 / scaleFactor;
+    double scaleFactor = 1.5;
+    int resolutionWidth = (int) (1920 / scaleFactor);
+    int resolutionHeight = (int) (1080 / scaleFactor);
     SpikeMark spikeMark = SpikeMark.RIGHT;
     HardwareMap hardwareMap;
     OpMode opMode;

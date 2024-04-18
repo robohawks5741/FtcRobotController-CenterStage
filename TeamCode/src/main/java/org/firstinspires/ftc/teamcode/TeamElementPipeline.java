@@ -16,9 +16,9 @@ import java.util.List;
 public class TeamElementPipeline extends OpenCvPipeline {
 
     private final boolean isOnRightSide;
-    private final int scaleFactor;
+    private final double scaleFactor;
 
-    public TeamElementPipeline(boolean isOnRightSide, int scaleFactor ) {
+    public TeamElementPipeline(boolean isOnRightSide, double scaleFactor) {
         this.isOnRightSide = isOnRightSide;
         this.scaleFactor = scaleFactor;
     }
@@ -52,13 +52,13 @@ public class TeamElementPipeline extends OpenCvPipeline {
         //Rect(top left x, top left y, bottom right x, bottom right y)
         // TODO: change these constants
         if (isOnRightSide) { //Right
-            zone1 = mat.submat(new Rect(0 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor));
-            zone2 = mat.submat(new Rect(500 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor));
-            zone3 = mat.submat(new Rect(1100 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor));
+            zone1 = mat.submat(new Rect((int) (0 / scaleFactor), (int) (400 / scaleFactor), (int) (400 / scaleFactor), (int) (400 / scaleFactor)));
+            zone2 = mat.submat(new Rect((int) (500 / scaleFactor), (int) (400 / scaleFactor), (int) (400 / scaleFactor), (int) (400 / scaleFactor)));
+            zone3 = mat.submat(new Rect((int) (1100 / scaleFactor), (int) (400 / scaleFactor), (int) (400 / scaleFactor), (int) (400 / scaleFactor)));
         } else { //Left
-            zone1 = mat.submat(new Rect(300 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor));
-            zone2 = mat.submat(new Rect(900 / scaleFactor, 400 / scaleFactor, 300 / scaleFactor, 300 / scaleFactor));
-            zone3 = mat.submat(new Rect(1500 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor));
+            zone1 = mat.submat(new Rect((int) (300 / scaleFactor), (int) (400 / scaleFactor), (int) (400 / scaleFactor), (int) (400 / scaleFactor)));
+            zone2 = mat.submat(new Rect((int) (900 / scaleFactor), (int) (400 / scaleFactor), (int) (300 / scaleFactor), (int) (300 / scaleFactor)));
+            zone3 = mat.submat(new Rect((int) (1500 / scaleFactor), (int) (400 / scaleFactor), (int) (400 / scaleFactor), (int) (400 / scaleFactor)));
         }
 
     }
