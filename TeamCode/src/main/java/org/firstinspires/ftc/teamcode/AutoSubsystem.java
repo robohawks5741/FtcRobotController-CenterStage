@@ -41,14 +41,14 @@ public class AutoSubsystem {
         }
     }
 
-    public AutoSubsystem(@NonNull OpMode opMode) {
+    public AutoSubsystem(@NonNull OpMode opMode, boolean isOnRightSide) {
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
         this.telemetry = opMode.telemetry;
 
         assert hardwareMap != null;
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
-        pipeline = new TeamElementPipeline();
+        pipeline = new TeamElementPipeline(isOnRightSide);
 
         camera.setPipeline(pipeline);
         camera.openCameraDeviceAsync(new EpicCameraListener(hardwareMap, telemetry));

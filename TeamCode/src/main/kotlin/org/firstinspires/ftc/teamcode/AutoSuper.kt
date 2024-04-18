@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.IMU
 import com.qualcomm.robotcore.hardware.Servo
+import org.firstinspires.ftc.teamcode.Alliance.*
+import org.firstinspires.ftc.teamcode.AllianceSide.*
 import org.firstinspires.ftc.teamcode.botmodule.ModuleConfig
 import org.firstinspires.ftc.teamcode.botmodule.Opticon
 
@@ -35,6 +37,7 @@ abstract class AutoSuper : LinearOpMode() {
     abstract val alliance: Alliance
     abstract val side: AllianceSide
 
+
     final override fun runOpMode() {
         clawR.position = 0.07
         clawL.position = 0.29
@@ -50,7 +53,10 @@ abstract class AutoSuper : LinearOpMode() {
         slideL.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
         slideL.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
 
-        autoSub = AutoSubsystem(this)
+        autoSub = AutoSubsystem(this, when (side) {
+            AUDIENCE_SIDE -> alliance == BLUE
+            BACKDROP_SIDE -> alliance == RED
+        })
         autoSub.setAlliance(alliance)
 
         shared = BotShared(this)

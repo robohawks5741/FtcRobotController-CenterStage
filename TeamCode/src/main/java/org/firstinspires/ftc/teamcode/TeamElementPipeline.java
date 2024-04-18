@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -12,6 +14,13 @@ import java.util.List;
 
 
 public class TeamElementPipeline extends OpenCvPipeline {
+
+    private final boolean isOnRightSide;
+
+    public TeamElementPipeline(boolean isOnRightSide) {
+        this.isOnRightSide = isOnRightSide;
+    }
+
     List<Integer> ELEMENT_COLOR = Arrays.asList(0, 0, 255); //(red, green, blue)
 
     // TODO: document
@@ -45,14 +54,14 @@ public class TeamElementPipeline extends OpenCvPipeline {
         //Defining Zones
         //Rect(top left x, top left y, bottom right x, bottom right y)
         // TODO: change these constants
-        if (BotShared.autoShouldParkRight) {
-            zone1 = mat.submat(new Rect(0, 0 , 639, 600));
-            zone2 = mat.submat(new Rect(641, 0, 639, 600));
-            zone3 =  mat.submat(new Rect(1281, 0, 639, 600));
-        } else {
-            zone1 = mat.submat(new Rect(0, 0 , 639, 600));
-            zone2 = mat.submat(new Rect(641, 0, 639, 600));
-            zone3 =  mat.submat(new Rect(1281, 0, 639, 600));
+        if (isOnRightSide) { //Right
+            zone1 = mat.submat(new Rect(0, 400 , 400, 400));
+            zone2 = mat.submat(new Rect(500, 400, 400, 400));
+            zone3 =  mat.submat(new Rect(1100, 400, 400, 400));
+        } else { //Left
+            zone1 = mat.submat(new Rect(300, 400 , 400, 400));
+            zone2 = mat.submat(new Rect(900, 400, 300, 300));
+            zone3 =  mat.submat(new Rect(1500, 400, 400, 400));
         }
 
     }

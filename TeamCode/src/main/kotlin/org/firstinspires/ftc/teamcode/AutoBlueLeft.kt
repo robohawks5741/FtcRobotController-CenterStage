@@ -16,6 +16,7 @@ class AutoBlueLeft : AutoSuper() {
     override val side = AllianceSide.BACKDROP_SIDE
 
     override fun runSpecialized() {
+        Thread.sleep(5000)
         runBlocking(when (placementZone) {
             SpikeMark.LEFT -> drive.actionBuilder(beginPose)
                 .splineTo(Vector2d(22.50, 0.0), Math.toRadians(0.0))
@@ -69,19 +70,19 @@ class AutoBlueLeft : AutoSuper() {
         inlift.position = 0.22
         sleep(200)
         //Left side
-      /*  runBlocking(
+        runBlocking(
             drive.actionBuilder(drive.pose)
                 .strafeToConstantHeading(Vector2d(1.81, 34.19))
                 .splineToConstantHeading(Vector2d(1.38, 45.79), Math.toRadians(270.0))
                 .build()
-        )*/
+        )
         //Right side
-        runBlocking(
+      /*  runBlocking(
             drive.actionBuilder(drive.pose)
                 .strafeToConstantHeading(Vector2d(48.98, 34.19))
                 .splineToConstantHeading(Vector2d(48.98, 45.79), Math.toRadians(270.0))
                 .build()
-        )
+        )*/
     }
 
 }
