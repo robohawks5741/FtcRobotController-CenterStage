@@ -16,9 +16,11 @@ import java.util.List;
 public class TeamElementPipeline extends OpenCvPipeline {
 
     private final boolean isOnRightSide;
+    private final int scaleFactor;
 
-    public TeamElementPipeline(boolean isOnRightSide) {
+    public TeamElementPipeline(boolean isOnRightSide, int scaleFactor ) {
         this.isOnRightSide = isOnRightSide;
+        this.scaleFactor = scaleFactor;
     }
 
     List<Integer> ELEMENT_COLOR = Arrays.asList(0, 0, 255); //(red, green, blue)
@@ -29,24 +31,19 @@ public class TeamElementPipeline extends OpenCvPipeline {
     // TODO: see if this needs to be atomic
     boolean toggleShow = true;
 
-    Mat original;
-
     Mat zone1;
     Mat zone2;
-
     Mat zone3;
 
     Scalar avgColor1;
     Scalar avgColor2;
-
     Scalar avgColor3;
 
 
     double distance1 = 1;
     double distance2 = 1;
-
     double distance3 = 1;
-
+    
     double maxDistance = 0;
 
     @Override
@@ -55,13 +52,13 @@ public class TeamElementPipeline extends OpenCvPipeline {
         //Rect(top left x, top left y, bottom right x, bottom right y)
         // TODO: change these constants
         if (isOnRightSide) { //Right
-            zone1 = mat.submat(new Rect(0, 400 , 400, 400));
-            zone2 = mat.submat(new Rect(500, 400, 400, 400));
-            zone3 =  mat.submat(new Rect(1100, 400, 400, 400));
+            zone1 = mat.submat(new Rect(0 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor));
+            zone2 = mat.submat(new Rect(500 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor));
+            zone3 = mat.submat(new Rect(1100 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor));
         } else { //Left
-            zone1 = mat.submat(new Rect(300, 400 , 400, 400));
-            zone2 = mat.submat(new Rect(900, 400, 300, 300));
-            zone3 =  mat.submat(new Rect(1500, 400, 400, 400));
+            zone1 = mat.submat(new Rect(300 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor));
+            zone2 = mat.submat(new Rect(900 / scaleFactor, 400 / scaleFactor, 300 / scaleFactor, 300 / scaleFactor));
+            zone3 = mat.submat(new Rect(1500 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor, 400 / scaleFactor));
         }
 
     }
@@ -70,7 +67,7 @@ public class TeamElementPipeline extends OpenCvPipeline {
     public Mat processFrame(Mat input) {
 
         //Creating duplicate of original frame with no edits
-        original = input.clone();
+//        original = input.clone();
 
 //        input = input.submat(new Rect(0));
         // TODO: use OKLab/Lch for color delta and improve algorithm
@@ -93,22 +90,23 @@ public class TeamElementPipeline extends OpenCvPipeline {
         maxDistance = Math.min(distance1, distance2);
         maxDistance = Math.min(maxDistance, distance3);
 
-        if (maxDistance == distance1){
+        if (maxDistance == distance1) {
             spikeMark = SpikeMark.LEFT;
-        } else if (maxDistance == distance2){
+        } else if (maxDistance == distance2) {
             spikeMark = SpikeMark.CENTER;
-        } else if (maxDistance == distance3){
+        } else if (maxDistance == distance3) {
             spikeMark = SpikeMark.RIGHT;
         } else {
             spikeMark = SpikeMark.CENTER;
         }
 
         // Allowing for the showing of the averages on the stream
-        if (toggleShow) {
-            return input;
-        } else {
-            return original;
-        }
+        return input;
+//        if (toggleShow) {
+//            return input;
+//        } else {
+//            return original;
+//        }
     }
 
     private double colorDistance(Scalar color1, List<Integer> color2) {

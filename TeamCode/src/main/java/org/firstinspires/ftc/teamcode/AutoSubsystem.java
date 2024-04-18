@@ -14,8 +14,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class AutoSubsystem {
     OpenCvCamera camera;
     public TeamElementPipeline pipeline;
-    int resolutionWidth = 1920;
-    int resolutionHeight = 1080;
+    int scaleFactor = 2;
+    int resolutionWidth = 1920 / scaleFactor;
+    int resolutionHeight = 1080 / scaleFactor;
     SpikeMark spikeMark = SpikeMark.RIGHT;
     HardwareMap hardwareMap;
     OpMode opMode;
@@ -48,7 +49,7 @@ public class AutoSubsystem {
 
         assert hardwareMap != null;
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
-        pipeline = new TeamElementPipeline(isOnRightSide);
+        pipeline = new TeamElementPipeline(isOnRightSide, scaleFactor);
 
         camera.setPipeline(pipeline);
         camera.openCameraDeviceAsync(new EpicCameraListener(hardwareMap, telemetry));

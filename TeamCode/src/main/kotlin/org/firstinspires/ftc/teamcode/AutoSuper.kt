@@ -79,6 +79,7 @@ abstract class AutoSuper : LinearOpMode() {
             placementZone = autoSub.spikeMark
 
             telemetry.update()
+            sleep(30)
         }
 
         placementZone = autoSub.spikeMark
